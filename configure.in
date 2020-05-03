@@ -100,8 +100,8 @@ if test "$gui" = "gtk"; then
 
 		dnl TEST_LIBS(gtk,gtk_window_new,[-lgdk])
 		dnl TEST_LIB(gdk,gdk_init)
-		AM_PATH_GLIB(1.0.0, CFLAGS="$CFLAGS $GLIB_CFLAGS" LIBS="$LIBS $GLIB_LIBS" ,AC_MSG_ERROR(*** GLIB >= 1.0.0 required ***))
-		AM_PATH_GTK(1.0.0, CFLAGS="$CFLAGS $GTK_CFLAGS" LIBS="$LIBS $GTK_LIBS" ,AC_MSG_ERROR(*** GTK >= 1.0.0 required ***))
+		AM_PATH_GLIB_2_0(2.0.0, CFLAGS="$CFLAGS $GLIB_CFLAGS" LIBS="$LIBS $GLIB_LIBS" ,AC_MSG_ERROR(*** GLIB >= 1.0.0 required ***))
+		AM_PATH_GTK_2_0(2.0.0, CFLAGS="$CFLAGS $GTK_CFLAGS" LIBS="$LIBS $GTK_LIBS" ,AC_MSG_ERROR(*** GTK >= 1.0.0 required ***))
 
 		AC_DEFINE(GUI_GTK)
 		guifile="ti85emu_gtk"
@@ -109,7 +109,7 @@ if test "$gui" = "gtk"; then
 fi
 
 if test "$gui" = "fltk"; then
-		TEST_LIB(stdc++,cout)
+		TEST_LIB(stdc++,main)
 		TEST_LIB(X11,XCreateSimpleWindow)
 		TEST_LIB(Xext,XMissingExtension)
 		TEST_LIB(fltk,fl_yes)
