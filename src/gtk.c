@@ -1,4 +1,6 @@
 #include "config.h"
+#include <stdint.h>
+#include <string.h>
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -92,7 +94,7 @@ char * get_fname(char * title)
 
 static void button_action(GtkButton * btn, gpointer key_nr)
 {
-	int i = (int)key_nr;
+	int i = (intptr_t)key_nr;
 
 	if (i < 0)
 		TI85_RESKEY(labels[-i-1].row, labels[-i-1].column);
@@ -120,7 +122,7 @@ gint emu(gpointer window)
 			memcpy(vram_backup, TI85_VRAM, 16*64);
 		else if (force_refresh)
 			force_refresh = 0;
-		else return;
+		else return 1;
 #endif
 
 #if 0
@@ -210,15 +212,17 @@ int gui_init(int * argcp, char ***argvp, Z80 * cpu)
 		GtkWidget * pixmap_w;
 		GdkBitmap * mask;
 		GtkStyle * style;
+		GdkPixbuf * pixbuf;
 
 		style = gtk_widget_get_style(tmp);
 
 		if (labels[i].pixmap) {
 			button = gtk_button_new();
-			pixmap = gdk_pixmap_create_from_xpm_d(tmp->window,
-					&mask,
-					&style->bg[GTK_STATE_NORMAL],
-					(gchar **)labels[i].pixmap);
+			pixbuf = gdk_pixbuf_new_from_xpm_data((const char **)labels[i].pixmap);
+			gdk_pixbuf_render_pixmap_and_mask (pixbuf,
+                                   &pixmap,
+                                   &mask,
+                                   0);
 			pixmap_w = gtk_pixmap_new(pixmap, mask);
 			//gtk_widget_show(pixmap_w);
 			gtk_container_add(GTK_CONTAINER(button), pixmap_w);
