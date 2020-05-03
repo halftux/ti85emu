@@ -9,7 +9,14 @@ TI85 Emulator for Unix, (c) 2001 Milan Pikula
 	* and FLTK or GTK library
 
 	Configuration:
-	* easy way: ./configure
+	* automake is broken or to old(lots of warnings!):
+	```shell
+	 aclocal
+	 autoconf 
+	 cp README.me README 
+	 automake --add-missing
+	```
+	* than go normal way: ./configure
 	* configure with your own options - follow the help,
 	  which shows on ./configure --help
 	  Most important is the GUI option: --with-gui=gtk,
