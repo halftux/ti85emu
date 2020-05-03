@@ -1,5 +1,6 @@
 #include "config.h"
 
+#include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <sys/time.h>
@@ -150,10 +151,10 @@ static void mainw_action(Fl_Widget * window, void * v)
 static void button_action(Fl_Widget * widg, void * key_nr)
 {
 	if (((Fl_Button *)widg)->value()) {
-		TI85_SETKEY(labels[(int)key_nr].row, labels[(int)key_nr].column);
+		TI85_SETKEY(labels[(intptr_t)key_nr].row, labels[(intptr_t)key_nr].column);
 		// printf ("Key %s turned on\n", labels[(int)key_nr].label);
 	} else {
-		TI85_RESKEY(labels[(int)key_nr].row, labels[(int)key_nr].column);
+		TI85_RESKEY(labels[(intptr_t)key_nr].row, labels[(intptr_t)key_nr].column);
 		// printf ("Key %s turned off\n", labels[(int)key_nr].label);
 	}
 }
